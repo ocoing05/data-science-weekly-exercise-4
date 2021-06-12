@@ -299,12 +299,222 @@ ggmap(world) +
   Overall, Starbucks seems to be most popular in the US, Japan, and the UK. This visualization tells us that the Starbucks in North America are primarily company owned and licensed. The Starbucks in Japan are primarily joint venture. The Starbucks in the UK are primarily franchise. There are other areas of consolidated types in other countries as well.
 
   2. Construct a new map of Starbucks locations in the Twin Cities metro area (approximately the 5 county metro area).  
+  
+
+```r
+metro <- get_stamenmap(
+    bbox = c(left = -93.9, bottom = 44.7, right = -92.4, top = 45.3), 
+    maptype = "toner-lite",
+    zoom = 10)
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/244/367.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/245/367.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/246/367.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/247/367.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/248/367.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/249/367.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/244/368.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/245/368.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/246/368.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/247/368.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/248/368.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/249/368.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/244/369.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/245/369.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/246/369.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/247/369.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/248/369.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-lite/10/249/369.png
+```
+
+```r
+ggmap(metro) +
+  geom_point(data = Starbucks, 
+             aes(x = Longitude, y = Latitude, color = `Ownership Type`), 
+             size = 1.5) +
+  theme_map()
+```
+
+```
+## Warning: Removed 25450 rows containing missing values (geom_point).
+```
+
+![](04_exercises_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+  
 
   3. In the Twin Cities plot, play with the zoom number. What does it do?  (just describe what it does - don't actually include more than one map).  
+  
+  Bigger numbers of zoom give more details while smaller numbers make the map be less detailed. For example, in the last map if I change the zoom to 7, the only city names visible are Minneapolis, St. Paul, and Bloomington.
 
   4. Try a couple different map types (see `get_stamenmap()` in help and look at `maptype`). Include a map with one of the other map types.  
+  
+
+```r
+metro2 <- get_stamenmap(
+    bbox = c(left = -93.9, bottom = 44.7, right = -92.4, top = 45.3), 
+    maptype = "watercolor",
+    zoom = 10)
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/244/367.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/245/367.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/246/367.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/247/367.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/248/367.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/249/367.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/244/368.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/245/368.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/246/368.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/247/368.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/248/368.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/249/368.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/244/369.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/245/369.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/246/369.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/247/369.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/248/369.jpg
+```
+
+```
+## Source : http://tile.stamen.com/watercolor/10/249/369.jpg
+```
+
+```r
+ggmap(metro2) +
+  geom_point(data = Starbucks, 
+             aes(x = Longitude, y = Latitude), 
+             size = 1.5) +
+  theme_map()
+```
+
+```
+## Warning: Removed 25450 rows containing missing values (geom_point).
+```
+
+![](04_exercises_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+  
 
   5. Add a point to the map that indicates Macalester College and label it appropriately. There are many ways you can do think, but I think it's easiest with the `annotate()` function (see `ggplot2` cheatsheet).
+  
+
+```r
+ggmap(metro) +
+  geom_point(data = Starbucks, 
+             aes(x = Longitude, y = Latitude), 
+             size = 1.5) +
+  annotate("text", y = 44.925, x = -93.1691, label = "Macalester", color ="red", size = 3) +
+  annotate("point", y = 44.9379, x = -93.1691, color = "red") +
+  theme_map()
+```
+
+```
+## Warning: Removed 25450 rows containing missing values (geom_point).
+```
+
+![](04_exercises_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+  
 
 ### Choropleth maps with Starbucks data (`geom_map()`)
 
@@ -336,8 +546,39 @@ starbucks_with_2018_pop_est <-
 ```
 
   6. **`dplyr` review**: Look through the code above and describe what each line of code does.
+  
+  167 reads in a csv file and assigns it to be "census_pop_est_2018"
+  168 separates the column "state" into two columns, called "dot" and "state", splitting by any non-alphanumeric characters. "extra" makes it so that if there are too many pieces from the separation, it will only be split twice.
+  169 removes the "dot" column from the table by selecting all columns except that one.
+  170 replaces the "state" column with the old state column, but all lower-case letters.
+  174 joins the two tables census_pop_est_2018 and starbucks_us_by_state by making state_name equal to state. It is a left join, so it will keep all cases in starbucks_us_by_state.
+  176 creates a new column, starbucks_per_10000, which divides n by the estimated population of the state in 2018 and multiplies that by 10000.
 
   7. Create a choropleth map that shows the number of Starbucks per 10,000 people on a map of the US. Use a new fill color, add points for all Starbucks in the US (except Hawaii and Alaska), add an informative title for the plot, and include a caption that says who created the plot (you!). Make a conclusion about what you observe.
+  
+
+```r
+states_map <- map_data("state")
+
+starbucks_with_2018_pop_est %>% 
+  ggplot() +
+  geom_map(map = states_map,
+           aes(map_id = state_name,
+               fill = starbucks_per_10000)) +
+  geom_point(data = Starbucks %>% filter(`Country` == "US", `State/Province` != "HI", `State/Province` != "AK"),
+             aes(x = Longitude, y = Latitude),
+             size = .05,
+             alpha = .2, 
+             color = "goldenrod") +
+  expand_limits(x = states_map$long, y = states_map$lat) + 
+  theme_map() +
+  labs(title = "Starbucks in U.S.", fill = "Starbucks per 10,000 People", caption = "Plot by Ingrid O'Connor") +
+  theme(legend.background = element_blank(), legend.position = "right")
+```
+
+![](04_exercises_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+  
+  Although there are a lot of Starbucks in the northeast, it also must be more populated than states on the West coast, which seem to have a similar amomunt of Starbucks, but are much lighter in color (more Starbucks per 10,000 people).
 
 ### A few of your favorite things (`leaflet`)
 
