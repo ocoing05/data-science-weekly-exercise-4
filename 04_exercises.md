@@ -585,8 +585,49 @@ starbucks_with_2018_pop_est %>%
   8. In this exercise, you are going to create a single map of some of your favorite places! The end result will be one map that satisfies the criteria below. 
 
   * Create a data set using the `tibble()` function that has 10-15 rows of your favorite places. The columns will be the name of the location, the latitude, the longitude, and a column that indicates if it is in your top 3 favorite locations or not. For an example of how to use `tibble()`, look at the `favorite_stp_by_lisa` I created in the data R code chunk at the beginning.  
+  
+
+```r
+favorites_ingrid <- tibble(
+  place = c("Home", "Macalester College", "Cam Ranh Bay Restaurant", "Subway", "My Cabin", "Black Sheep Pizza", "Theodore Wirth Park", "Giant's Ridge", "Minnehaha Falls", "University of Minnesota"),
+  long = c(-93.346580, -93.1712321, -93.291980, -93.354020, -91.909092, -93.275688, -93.321327, -92.303300, -93.210983, -93.233118),
+  lat = c(44.733210, 44.9378965, 44.746650, 44.746700, 47.371596, 44.987309, 44.992489, 47.575710, 44.915274, 44.976160),
+  favorite = c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE),
+  twin_cities = c(TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)
+  )
+favorites_ingrid_twin_cities <- favorites_ingrid %>%
+  filter(twin_cities)
+```
+  
 
   * Create a `leaflet` map that uses circles to indicate your favorite places. Label them with the name of the place. Choose the base map you like best. Color your 3 favorite places differently than the ones that are not in your top 3 (HINT: `colorFactor()`). Add a legend that explains what the colors mean.  
+  
+
+```r
+pal2 <- colorFactor(c("red","blue"), 
+                     domain = favorites_ingrid$favorite) 
+leaflet(favorites_ingrid) %>%
+  addTiles() %>%
+  addCircles(
+    popup = ~paste(place),
+    opacity = 1,
+    color = ~pal2(favorite)
+  ) %>%
+  addLegend(pal = pal2, 
+            values = ~favorite, 
+            title = "Top 3 Favorite?",
+            position = "bottomright") 
+```
+
+```
+## Assuming "long" and "lat" are longitude and latitude, respectively
+```
+
+```{=html}
+<div id="htmlwidget-7ceb18e5a8f558e935b2" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7ceb18e5a8f558e935b2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[44.73321,44.9378965,44.74665,44.7467,47.371596,44.987309,44.992489,47.57571,44.915274,44.97616],[-93.34658,-93.1712321,-93.29198,-93.35402,-91.909092,-93.275688,-93.321327,-92.3033,-93.210983,-93.233118],10,null,null,{"interactive":true,"className":"","stroke":true,"color":["#0000FF","#0000FF","#FF0000","#FF0000","#0000FF","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000"],"weight":5,"opacity":1,"fill":true,"fillColor":["#0000FF","#0000FF","#FF0000","#FF0000","#0000FF","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000"],"fillOpacity":0.2},["Home","Macalester College","Cam Ranh Bay Restaurant","Subway","My Cabin","Black Sheep Pizza","Theodore Wirth Park","Giant's Ridge","Minnehaha Falls","University of Minnesota"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]},{"method":"addLegend","args":[{"colors":["#FF0000","#0000FF"],"labels":["FALSE","TRUE"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"factor","title":"Top 3 Favorite?","extra":null,"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[44.73321,47.57571],"lng":[-93.35402,-91.909092]}},"evals":[],"jsHooks":[]}</script>
+```
+  
   
   * Connect all your locations together with a line in a meaningful way (you may need to order them differently in the original data).  
   
