@@ -592,11 +592,8 @@ favorites_ingrid <- tibble(
   place = c("Home", "Macalester College", "Cam Ranh Bay Restaurant", "Subway", "My Cabin", "Black Sheep Pizza", "Theodore Wirth Park", "Giant's Ridge", "Minnehaha Falls", "University of Minnesota"),
   long = c(-93.346580, -93.1712321, -93.291980, -93.354020, -91.909092, -93.275688, -93.321327, -92.303300, -93.210983, -93.233118),
   lat = c(44.733210, 44.9378965, 44.746650, 44.746700, 47.371596, 44.987309, 44.992489, 47.575710, 44.915274, 44.976160),
-  favorite = c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE),
-  twin_cities = c(TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)
+  favorite = c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE)
   )
-favorites_ingrid_twin_cities <- favorites_ingrid %>%
-  filter(twin_cities)
 ```
   
 
@@ -624,14 +621,62 @@ leaflet(favorites_ingrid) %>%
 ```
 
 ```{=html}
-<div id="htmlwidget-7ceb18e5a8f558e935b2" style="width:672px;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7ceb18e5a8f558e935b2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[44.73321,44.9378965,44.74665,44.7467,47.371596,44.987309,44.992489,47.57571,44.915274,44.97616],[-93.34658,-93.1712321,-93.29198,-93.35402,-91.909092,-93.275688,-93.321327,-92.3033,-93.210983,-93.233118],10,null,null,{"interactive":true,"className":"","stroke":true,"color":["#0000FF","#0000FF","#FF0000","#FF0000","#0000FF","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000"],"weight":5,"opacity":1,"fill":true,"fillColor":["#0000FF","#0000FF","#FF0000","#FF0000","#0000FF","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000"],"fillOpacity":0.2},["Home","Macalester College","Cam Ranh Bay Restaurant","Subway","My Cabin","Black Sheep Pizza","Theodore Wirth Park","Giant's Ridge","Minnehaha Falls","University of Minnesota"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]},{"method":"addLegend","args":[{"colors":["#FF0000","#0000FF"],"labels":["FALSE","TRUE"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"factor","title":"Top 3 Favorite?","extra":null,"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[44.73321,47.57571],"lng":[-93.35402,-91.909092]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a963a324de85f4306b3d" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a963a324de85f4306b3d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[44.73321,44.9378965,44.74665,44.7467,47.371596,44.987309,44.992489,47.57571,44.915274,44.97616],[-93.34658,-93.1712321,-93.29198,-93.35402,-91.909092,-93.275688,-93.321327,-92.3033,-93.210983,-93.233118],10,null,null,{"interactive":true,"className":"","stroke":true,"color":["#0000FF","#0000FF","#FF0000","#FF0000","#0000FF","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000"],"weight":5,"opacity":1,"fill":true,"fillColor":["#0000FF","#0000FF","#FF0000","#FF0000","#0000FF","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000"],"fillOpacity":0.2},["Home","Macalester College","Cam Ranh Bay Restaurant","Subway","My Cabin","Black Sheep Pizza","Theodore Wirth Park","Giant's Ridge","Minnehaha Falls","University of Minnesota"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]},{"method":"addLegend","args":[{"colors":["#FF0000","#0000FF"],"labels":["FALSE","TRUE"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"factor","title":"Top 3 Favorite?","extra":null,"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[44.73321,47.57571],"lng":[-93.35402,-91.909092]}},"evals":[],"jsHooks":[]}</script>
 ```
   
   
   * Connect all your locations together with a line in a meaningful way (you may need to order them differently in the original data).  
   
+
+```r
+# Order of when I first visited
+favorites_ingrid <- tibble(
+  place = c("Home", "My Cabin", "Minnehaha Falls", "University of Minnesota", "Cam Ranh Bay Restaurant", "Subway", "Black Sheep Pizza", "Theodore Wirth Park", "Giant's Ridge", "Macalester College"),
+  long = c(-93.346580, -91.909092, -93.210983, -93.233118, -93.291980, -93.354020, -93.275688, -93.321327, -92.303300, -93.1712321),
+  lat = c(44.733210, 47.371596, 44.915274, 44.976160, 44.746650, 44.746700, 44.987309, 44.992489, 47.575710, 44.9378965),
+  favorite = c(TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
+  )
+leaflet(favorites_ingrid) %>%
+  addTiles() %>%
+  addCircles(
+    popup = ~paste(place),
+    opacity = 1,
+    color = ~pal2(favorite)
+  ) %>%
+  addLegend(pal = pal2, 
+            values = ~favorite, 
+            title = "Top 3 Favorite?",
+            position = "bottomright") %>%
+  addPolylines(lng = ~long, 
+               lat = ~lat, 
+               color = col2hex("darkred"))
+```
+
+```
+## Assuming "long" and "lat" are longitude and latitude, respectively
+```
+
+```{=html}
+<div id="htmlwidget-bce88a195858506b1e61" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bce88a195858506b1e61">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[44.73321,47.371596,44.915274,44.97616,44.74665,44.7467,44.987309,44.992489,47.57571,44.9378965],[-93.34658,-91.909092,-93.210983,-93.233118,-93.29198,-93.35402,-93.275688,-93.321327,-92.3033,-93.1712321],10,null,null,{"interactive":true,"className":"","stroke":true,"color":["#0000FF","#0000FF","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#0000FF"],"weight":5,"opacity":1,"fill":true,"fillColor":["#0000FF","#0000FF","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#0000FF"],"fillOpacity":0.2},["Home","My Cabin","Minnehaha Falls","University of Minnesota","Cam Ranh Bay Restaurant","Subway","Black Sheep Pizza","Theodore Wirth Park","Giant's Ridge","Macalester College"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]},{"method":"addLegend","args":[{"colors":["#FF0000","#0000FF"],"labels":["FALSE","TRUE"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"factor","title":"Top 3 Favorite?","extra":null,"layerId":null,"className":"info legend","group":null}]},{"method":"addPolylines","args":[[[[{"lng":[-93.34658,-91.909092,-93.210983,-93.233118,-93.29198,-93.35402,-93.275688,-93.321327,-92.3033,-93.1712321],"lat":[44.73321,47.371596,44.915274,44.97616,44.74665,44.7467,44.987309,44.992489,47.57571,44.9378965]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#8B0000","weight":5,"opacity":0.5,"fill":false,"fillColor":"#8B0000","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[44.73321,47.57571],"lng":[-93.35402,-91.909092]}},"evals":[],"jsHooks":[]}</script>
+```
+  
+  
   * If there are other variables you want to add that could enhance your plot, do that now.  
+  
+
+```r
+favorites_ingrid %>%
+  mutate(twin_cities = c(TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE))
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["place"],"name":[1],"type":["chr"],"align":["left"]},{"label":["long"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["lat"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["favorite"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["twin_cities"],"name":[5],"type":["lgl"],"align":["right"]}],"data":[{"1":"Home","2":"-93.34658","3":"44.73321","4":"TRUE","5":"TRUE"},{"1":"My Cabin","2":"-91.90909","3":"47.37160","4":"TRUE","5":"FALSE"},{"1":"Minnehaha Falls","2":"-93.21098","3":"44.91527","4":"FALSE","5":"TRUE"},{"1":"University of Minnesota","2":"-93.23312","3":"44.97616","4":"FALSE","5":"TRUE"},{"1":"Cam Ranh Bay Restaurant","2":"-93.29198","3":"44.74665","4":"FALSE","5":"TRUE"},{"1":"Subway","2":"-93.35402","3":"44.74670","4":"FALSE","5":"TRUE"},{"1":"Black Sheep Pizza","2":"-93.27569","3":"44.98731","4":"FALSE","5":"TRUE"},{"1":"Theodore Wirth Park","2":"-93.32133","3":"44.99249","4":"FALSE","5":"TRUE"},{"1":"Giant's Ridge","2":"-92.30330","3":"47.57571","4":"FALSE","5":"FALSE"},{"1":"Macalester College","2":"-93.17123","3":"44.93790","4":"TRUE","5":"TRUE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+  
   
 ## Revisiting old datasets
 
@@ -671,10 +716,163 @@ Stations<-read_csv("http://www.macalester.edu/~dshuman1/data/112/DC-Stations.csv
   9. Use the latitude and longitude variables in `Stations` to make a visualization of the total number of departures from each station in the `Trips` data. Use either color or size to show the variation in number of departures. This time, plot the points on top of a map. Use any of the mapping tools you'd like.
   
 
+```r
+dc <- get_stamenmap(
+  bbox = c(left = -77.3490, top = 39.1234, bottom = 38.7886, right = -76.6005),
+  maptype = "terrain",
+  zoom = 11
+)
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/583/781.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/584/781.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/585/781.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/586/781.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/587/781.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/588/781.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/583/782.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/584/782.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/585/782.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/586/782.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/587/782.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/588/782.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/583/783.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/584/783.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/585/783.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/586/783.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/587/783.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/588/783.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/583/784.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/584/784.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/585/784.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/586/784.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/587/784.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/588/784.png
+```
+
+```r
+stations2 <- Trips %>%
+  group_by(sstation) %>%
+  summarize(number_of_departures = n()) %>%
+  inner_join(Stations, by = c("sstation" = "name"))
+
+ggmap(dc) + 
+  geom_point(data = stations2,
+             aes(x = long, y = lat, color = number_of_departures),
+             size = 1,
+             alpha = 1) +
+  scale_color_viridis_c(option = "plasma") +
+  theme_map() +
+  labs(color = "Number of Departures", title = "Washington D.C. Bike Rental Stations (last quarter of 2014)")
+```
+
+```
+## Warning: Removed 1 rows containing missing values (geom_point).
+```
+
+![](04_exercises_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
   
   10. Only 14.4% of the trips in our data are carried out by casual users. Create a plot that shows which area(s) have stations with a much higher percentage of departures by casual users. What patterns do you notice? Also plot this on top of a map. I think it will be more clear what the patterns are.
   
 
+```r
+stations3 <- Trips %>%
+  mutate(client_casual = (client == "Casual")) %>%
+  group_by(sstation) %>%
+  summarize(total_departures = n(), casual_departures = sum(client_casual)) %>%
+  mutate(percent_casual = casual_departures / total_departures) %>%
+  inner_join(Stations, by = c("sstation" = "name"))
+```
+
+```r
+ggmap(dc) + 
+  geom_point(data = stations3,
+             aes(x = long, y = lat, color = percent_casual),
+             size = 1,
+             alpha = 1) +
+  scale_color_viridis_c(option = "plasma") +
+  theme_map() +
+  labs(color = "Percent of Casual Clients", title = "Washington D.C. Bike Rental Stations (last quarter of 2014)") +
+  theme(legend.position = "right")
+```
+
+```
+## Warning: Removed 1 rows containing missing values (geom_point).
+```
+
+![](04_exercises_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+
+Many of the stations with a high percentage of casual clients are along the river and in the center of the city, most likely at tourist sites.
   
 ### COVID-19 data
 
